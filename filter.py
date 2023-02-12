@@ -1,0 +1,17 @@
+import arrow
+import mimetypes
+import os
+
+def datetimeformat(date_str):
+    dt = arrow.get(date_str)
+    return dt.humanize()
+
+def file_type(key):
+    file_info = os.path.splitext(key)
+    file_extension = file_info[1]
+    try:
+        return mimetypes.types_map.get(file_extension, 'application/octet-stream')
+    except KeyError:
+        return 'Unknown'
+
+
