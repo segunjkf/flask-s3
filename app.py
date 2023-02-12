@@ -78,6 +78,5 @@ def download():
     )
 
 
-if __name__ == '__main__':
-    app.debug   
+if __name__ == '__main__':  
     app.run()
