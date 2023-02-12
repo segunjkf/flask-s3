@@ -13,5 +13,3 @@ def file_type(key):
         return mimetypes.types_map.get(file_extension, 'application/octet-stream')
     except KeyError:
         return 'Unknown'
-
-
