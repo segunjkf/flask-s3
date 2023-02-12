@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, Response
+from flask import Flask, render_template, request, redirect, url_for, flash, Response, session
 from flask_bootstrap import Bootstrap
 import boto3
-import logging
 from botocore.exceptions import ClientError
 from filter import datetimeformat, file_type
 from get_bucket_resource import get_bucket, list_buckets
@@ -16,10 +15,15 @@ app.jinja_env.filters['datetimeformat'] = datetimeformat
 app.jinja_env.filters['file_type'] = file_type
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    buckets = list_buckets()
-    return render_template('index.html', buckets=buckets)
+    if request.method == 'POST': 
+        bucket = request.form['bucket']
+        session['bucket'] = bucket
+        return redirect(url_for('files'))
+    else:
+        buckets = list_buckets()
+        return render_template("index.html", buckets=buckets)   
 
 @app.route('/files')
 def files():
