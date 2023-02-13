@@ -33,7 +33,6 @@ def files():
     return render_template('files.html', buckets=buckets, files=summaries)
 
 @app.route('/upload', methods=['POST'])
-@app.route('/upload', methods=['POST'])
 def upload():
     file = request.files.get('file')
     if file is None:
@@ -77,6 +76,8 @@ def download():
         headers={"Content-Disposition": "attachment;filename={}".format(key)}
     )
 
-
 if __name__ == '__main__':  
     app.run()
+
+
+    
